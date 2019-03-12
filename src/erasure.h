@@ -65,7 +65,7 @@ extern "C" {
 #endif
 
 
-extern GoSlice Encode(GoSlice p0);
+extern GoString Encode(GoSlice p0);
 
 extern GoSlice Decode(GoSlice p0, GoInt p1);
 

@@ -5,7 +5,7 @@ public class Client {
     public interface Erasure extends Library {
         // GoSlice class maps to:
         // C type struct { void *data; GoInt len; GoInt cap; }
-        public class GoSlice extends Structure {
+        class GoSlice extends Structure {
             public static class ByValue extends GoSlice implements Structure.ByValue {}
             public Pointer data;
             public long len;
@@ -17,7 +17,7 @@ public class Client {
 
         // GoString class maps to:
         // C type struct { const char *p; GoInt n; }
-        public class GoString extends Structure {
+        class GoString extends Structure {
             public static class ByValue extends GoString implements Structure.ByValue {}
             public String p;
             public long n;
@@ -27,7 +27,7 @@ public class Client {
 
         }
 
-         GoSlice Encode(GoSlice.ByValue bytes);
+         GoString.ByValue Encode(GoSlice.ByValue bytes);
          GoSlice Decode(GoSlice p0, long p1);
     }
 
@@ -36,7 +36,7 @@ public class Client {
         //Replace this path with the path on your local machine
         Erasure erasure = Native.load(
                 "/home/pedro/Documents/juan_work/callingErasure/src/erasure.so", Erasure.class);
-        byte[] bytes = "data".getBytes();
+        byte[] bytes = "verylongstringdatajuanherrykishoriinput".getBytes();
 
         Memory arr = new Memory(bytes.length * Native.getNativeSize(Byte.TYPE));
         arr.write(0, bytes, 0, bytes.length);
@@ -45,10 +45,8 @@ public class Client {
         slice.data = arr;
         slice.len = bytes.length;
         slice.cap = bytes.length;
-        System.out.println(slice.data);
-        Erasure.GoSlice encodedSlice = erasure.Encode(slice);
-        System.out.println(erasure.Decode(encodedSlice,slice.len));
 
-
+        Erasure.GoString.ByValue goString = erasure.Encode(slice);
+        System.out.println(goString.p);
     }
 }

@@ -2,7 +2,8 @@ package main
 
 import "C"
 import (
-   "erasure"
+    "bytes"
+    "erasure"
 )
 
 var (
@@ -16,19 +17,23 @@ func init(){
 }
 
 //export Encode
-func Encode(input []byte) ([][]byte) {
-    println("Encoding data");
-    s := string(input[:4]);
-    println(s);
+func Encode(input []byte) (string) {
+    var str string;
     res,_ := e.Encode(input);
-    return res;
+    for _, element := range res {
+        n := bytes.IndexByte(element,0);
+        s := string(element[:n]);
+        str += s;
+        println(str);
+    }
+    return str;
 }
 
 //export Decode
-func Decode(input [][]byte, length int) ([]byte) {
-    println("Decoding data")
-    res,_ := e.Decode(input, length);
+func Decode(input []string, length int, buffer []byte) ([]byte) {
+    res,_ := e.Decode(input, length);i
     return res;
+    return  nil;
 }
 func main(){
 
