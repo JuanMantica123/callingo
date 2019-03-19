@@ -30,10 +30,16 @@ func Encode(input []byte) (string) {
 }
 
 //export Decode
-func Decode(input []string, length int, buffer []byte) ([]byte) {
-    res,_ := e.Decode(input, length);i
-    return res;
-    return  nil;
+func Decode(encodedString string, length int) (string) {
+    var byteMatrix [][]byte;
+    for i :=0;i< len(encodedString);i+=length {
+        str := encodedString[i : i+length];
+        byteMatrix =append(byteMatrix,[]byte(str));
+    }
+    res,_ := e.Decode(byteMatrix, length);
+    //n := bytes.IndexByte(res,0);
+    decodedString := string(res);
+    return  decodedString;
 }
 func main(){
 

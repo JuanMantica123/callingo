@@ -28,7 +28,7 @@ public class Client {
         }
 
          GoString.ByValue Encode(GoSlice.ByValue bytes);
-         GoSlice Decode(GoSlice p0, long p1);
+         GoString.ByValue Decode(GoString.ByValue encodedString, long p1);
     }
 
     static public void main(String argv[]) {
@@ -46,7 +46,10 @@ public class Client {
         slice.len = bytes.length;
         slice.cap = bytes.length;
 
-        Erasure.GoString.ByValue goString = erasure.Encode(slice);
-        System.out.println(goString.p);
+        Erasure.GoString.ByValue encodedGoString = erasure.Encode(slice);
+        System.out.println(encodedGoString.p);
+
+        Erasure.GoString.ByValue decodedGoString = erasure.Decode(encodedGoString,encodedGoString.n/4);
+        System.out.println(decodedGoString.p);
     }
 }

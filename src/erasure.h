@@ -67,7 +67,7 @@ extern "C" {
 
 extern GoString Encode(GoSlice p0);
 
-extern GoSlice Decode(GoSlice p0, GoInt p1);
+extern GoString Decode(GoString p0, GoInt p1);
 
 #ifdef __cplusplus
 }
